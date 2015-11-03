@@ -12,24 +12,18 @@ $ cd localvm
 $ vagrant up
 ```
 
-### Job for upstart
-
-#### list
-
-```
-$ initctl list | grep neo4j
-```
+### Job for init.d
 
 #### start
 
 ```
-$ initctl start neo4j
+$ service neo4j start
 ```
 
 #### stop
 
 ```
-$ initctl stop neo4j
+$ service neo4j stop
 ```
 
 ### Access Neo4j
