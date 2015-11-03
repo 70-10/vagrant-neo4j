@@ -1,0 +1,5 @@
+- name: ansible initial settings
+  sudo: yes
+  yum:
+    name: libselinux-python
+    state: present

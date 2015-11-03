@@ -1,0 +1,59 @@
+- name: install package for neo4j
+  sudo: yes
+  yum:
+    name: lsof
+    state: present
+
+- stat:
+    path: "/tmp/neo4j-community-{{ neo4j.version }}-unix.tar.gz"
+  register: neo4j_archive
+
+- name: download neo4j
+  sudo: yes
+  get_url:
+    url: "http://neo4j.com/artifact.php?name=neo4j-community-{{ neo4j.version }}-unix.tar.gz"
+    dest: /tmp
+  when: not neo4j_archive.stat.exists
+
+- stat:
+    path: "/opt/neo4j-community-{{ neo4j.version }}"
+  register: neo4j_dir
+
+- name: unarchive neo4j
+  sudo: yes
+  unarchive:
+    src: "/tmp/neo4j-community-{{ neo4j.version }}-unix.tar.gz"
+    dest: /opt
+    copy: no
+    owner: "{{ exec.user }}"
+    group: "{{ exec.group }}"
+  when: not neo4j_dir.stat.exists
+
+- name: create symlink
+  sudo: yes
+  file:
+    src: "/opt/neo4j-community-{{ neo4j.version }}"
+    dest: /opt/neo4j
+    state: link
+
+- name: settings neo4j-server.properties
+  sudo: yes
+  template:
+    src: neo4j-server.properties.j2
+    dest: /opt/neo4j/conf/neo4j-server.properties
+
+- name: create link neo4j
+  sudo: yes
+  file:
+    src: /opt/neo4j/bin/neo4j
+    dest: /etc/init.d/neo4j
+    state: link
+    owner: root
+    group: root
+
+- name: service neo4j start
+  sudo: yes
+  service:
+    name: neo4j
+    state: started
+    enabled: yes

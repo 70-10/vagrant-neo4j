@@ -1,0 +1,5 @@
+- name: install jdk
+  sudo: yes
+  yum:
+    name: "java-{{ java.version }}-openjdk.x86_64"
+    state: present

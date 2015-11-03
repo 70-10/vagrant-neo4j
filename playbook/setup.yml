@@ -1,0 +1,9 @@
+---
+  - hosts: localvm
+    gather_facts: no
+    tags: localvm
+    roles:
+      - ansible
+      - linux/security
+      - middleware/java
+      - middleware/neo4j
