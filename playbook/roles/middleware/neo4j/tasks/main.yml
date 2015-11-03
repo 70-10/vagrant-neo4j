@@ -38,8 +38,8 @@
 
 - name: settings neo4j-server.properties
   sudo: yes
-  copy:
-    src: neo4j-server.properties
+  template:
+    src: neo4j-server.properties.j2
     dest: /opt/neo4j/conf/neo4j-server.properties
 
 - name: create upstart job
