@@ -1,0 +1,8 @@
+- name: settings limits.conf
+  sudo: yes
+  copy:
+    src: limits.conf
+    dest: /etc/security/limits.conf
+    owner: root
+    group: root
+    mode: "0644"

@@ -1,6 +1,0 @@
----
-  - hosts: all
-    gather_facts: no
-    remote_user: vagrant
-    roles:
-      - neo4j
