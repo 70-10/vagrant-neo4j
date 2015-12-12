@@ -1,7 +1,7 @@
 stage: localvm
 
 neo4j:
-  version: 2.3.0
+  version: 2.3.1
   address: 172.17.5.100
 
 java:
